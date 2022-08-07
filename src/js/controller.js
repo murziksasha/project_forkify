@@ -20,7 +20,9 @@ window.addEventListener('DOMContentLoaded', () => {
 
       recipeView.render(model.state.recipe);
     } catch (err) {
-      console.log(err);
+      recipeView.renderError(
+        `We could not find that recipe. Please another one!`
+      );
     }
   };
 

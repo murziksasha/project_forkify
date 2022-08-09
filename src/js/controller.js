@@ -2,6 +2,7 @@ import * as model from './model.js';
 import recipeView from './views/recipeView.js';
 import searchView from './views/searchView.js';
 import resultsView from './views/resultsView.js';
+import paginationView from './views/paginationView.js';
 
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
@@ -39,14 +40,27 @@ window.addEventListener('DOMContentLoaded', () => {
       //3) render results
       // resultsView.render(model.state.search.results);
       resultsView.render(model.getSearchResultsPage());
+
+      //4) Initial pagination buttons
+      paginationView.render(model.state.search);
     } catch (err) {
       console.log(err);
     }
   };
 
+  const controlPagination = goToPage => {
+    //3) render results
+    // resultsView.render(model.state.search.results);
+    resultsView.render(model.getSearchResultsPage(goToPage));
+
+    //4) Initial pagination buttons
+    paginationView.render(model.state.search);
+  };
+
   const init = () => {
     recipeView.addHanderRender(controlRecipes);
     searchView.addHandlerSearch(controlSearchResults);
+    paginationView.addHandlerClick(controlPagination);
   };
   init();
 });

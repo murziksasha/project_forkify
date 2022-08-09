@@ -18,6 +18,10 @@ window.addEventListener('DOMContentLoaded', () => {
     try {
       const id = window.location.hash.slice(1);
       if (!id) return;
+      recipeView.renderSpinner();
+      //Update results view to mark selected search result
+      resultsView.update(model.getSearchResultsPage());
+      
       //Loading recipe
       await model.loadRecipe(id);
 
@@ -61,7 +65,8 @@ window.addEventListener('DOMContentLoaded', () => {
     // Update the recipe servings (in state)
     model.updateServings(newServings);
     //Update the recipe view
-    recipeView.render(model.state.recipe);
+    // recipeView.render(model.state.recipe);
+    recipeView.update(model.state.recipe);
   };
 
   const init = () => {
@@ -71,8 +76,6 @@ window.addEventListener('DOMContentLoaded', () => {
     paginationView.addHandlerClick(controlPagination);
   };
   init();
+
+  ///////////////////////////////////////
 });
-
-// https://forkify-api.herokuapp.com/v2
-
-///////////////////////////////////////

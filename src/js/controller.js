@@ -21,7 +21,7 @@ window.addEventListener('DOMContentLoaded', () => {
       recipeView.renderSpinner();
       //Update results view to mark selected search result
       resultsView.update(model.getSearchResultsPage());
-      
+
       //Loading recipe
       await model.loadRecipe(id);
 
@@ -69,9 +69,19 @@ window.addEventListener('DOMContentLoaded', () => {
     recipeView.update(model.state.recipe);
   };
 
+  const controlAddBookmark = () => {
+    if (!model.state.recipe.bookmarked) {
+      model.addBookmark(model.state.recipe);
+    } else {
+      model.deleteBookmark(model.state.recipe.id);
+    }
+    recipeView.update(model.state.recipe);
+  };
+
   const init = () => {
     recipeView.addHanderRender(controlRecipes);
     recipeView.addHandlerUpdateServings(controlServings);
+    recipeView.addHandlerAddBookmark(controlAddBookmark);
     searchView.addHandlerSearch(controlSearchResults);
     paginationView.addHandlerClick(controlPagination);
   };

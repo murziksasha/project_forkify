@@ -32,6 +32,7 @@ window.addEventListener('DOMContentLoaded', () => {
       recipeView.render(model.state.recipe);
     } catch (err) {
       recipeView.renderError();
+      console.error(err);
     }
   };
 
@@ -84,14 +85,24 @@ window.addEventListener('DOMContentLoaded', () => {
     bookmarksView.render(model.state.bookmarks);
   };
 
+  const controlBookmarks = () => {
+    bookmarksView.render(model.state.bookmarks);
+  };
+
   const init = () => {
+    bookmarksView.addHandlerRender(controlBookmarks);
     recipeView.addHanderRender(controlRecipes);
     recipeView.addHandlerUpdateServings(controlServings);
     recipeView.addHandlerAddBookmark(controlAddBookmark);
     searchView.addHandlerSearch(controlSearchResults);
     paginationView.addHandlerClick(controlPagination);
   };
-  init();
+  // init();
 
+  const clearBookmarks = () => {
+    localStorage.clear('bookmarks');
+  };
+
+  // clearBookmarks();
   ///////////////////////////////////////
 });
